@@ -1,0 +1,15 @@
+echo "Hello HDFS!" > /home/hadoop/sample.txt
+javac -classpath `hadoop classpath` -d . SimpleHdfsOps.java
+jar cf SimpleHdfsOps.jar SimpleHdfs*.class
+hadoop jar SimpleHdfsOps.jar SimpleHdfsOps
+
+
+hadoop com.sun.tools.javac.Main WordCount.java
+jar cf wc.jar WordCount*.class
+echo "hello hadoop hello world" > input.txt
+hdfs dfs -mkdir -p /user/hadoop/input
+hdfs dfs -put input.txt /user/hadoop/input/
+
+hadoop jar wc.jar WordCount /user/hadoop/input /user/hadoop/output
+hdfs dfs -cat /user/hadoop/output/part-r-00000
+
